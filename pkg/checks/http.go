@@ -115,6 +115,11 @@ func httpCheck(ctx context.Context, c ct.Check, p ct.Policy, r *ct.Result) error
 	r.Stage = "http"
 	r.Data["status_code"] = res.StatusCode
 	r.Data["final_url"] = res.Request.URL.Scheme + "://" + res.Request.URL.Host + res.Request.URL.EscapedPath()
+	if c.CertificateMinDays > 0 && res.TLS == nil {
+		r.Status = "error"
+		r.Stage = "configuration"
+		return fmt.Errorf("证书有效期断言要求最终响应使用 HTTPS")
+	}
 	if res.TLS != nil {
 		finalCheck := c
 		finalCheck.Target = res.Request.URL.String()
