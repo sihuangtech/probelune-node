@@ -24,7 +24,7 @@ jobs:
         with:
           name: node-linux-binaries
           path: dist/
-      - run: docker build -t probelune-node:ci .
+      - run: docker build --pull -t probelune-node:ci .
       - name: Exercise non-root raw-network capability
         run: |
           printf '%s\n' '{"check":{"type":"ping","target":"127.0.0.1","count":2,"timeout":3},"policy":{"allow_cidrs":["127.0.0.0/8"]}}' | docker run --rm -i --cap-drop ALL --cap-add NET_RAW probelune-node:ci --check | tee result.json

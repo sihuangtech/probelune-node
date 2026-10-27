@@ -1,11 +1,11 @@
-FROM golang:1.27-alpine AS build
+FROM golang:1.27.3-alpine3.24 AS build
 WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/probelune-node ./cmd/node
 
-FROM alpine:3.24
+FROM alpine:3.24.3
 RUN apk add --no-cache ca-certificates tzdata mtr traceroute libcap \
     && addgroup -S -g 65532 probelune && adduser -S -u 65532 -G probelune probelune \
     && mkdir /data && chown 65532:65532 /data

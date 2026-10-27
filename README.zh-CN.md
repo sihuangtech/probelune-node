@@ -8,7 +8,7 @@
 
 ## 编译与注册
 
-需要 Go 1.27+，可独立克隆、编译，不依赖其他源码目录。
+安装 [Go](https://go.dev/doc/install)，当前验证的补丁版本为 **1.27.3**。
 
 ```sh
 git clone https://github.com/sihuangtech/probelune-node.git
@@ -22,10 +22,10 @@ export PROBELUNE_REGISTER_TOKEN='面板生成的一次性令牌'
 
 本地受控 HTTP 联调需显式加 `--allow-http`；正式部署使用 HTTPS。默认并发 4，可通过 `--concurrency 1..32` 调整。`--version` 显示版本。
 
-## Docker 与 systemd
+## Docker
 
 ```sh
-docker build -t probelune-node:local .
+docker build --pull -t probelune-node:local .
 docker run --name probelune-node --restart unless-stopped \
   --cap-drop ALL --cap-add NET_RAW \
   -e PROBELUNE_PANEL=https://monitor.example.com \
@@ -34,7 +34,7 @@ docker run --name probelune-node --restart unless-stopped \
   -v probelune-node-data:/data probelune-node:local
 ```
 
-镜像以 UID 65532 运行，包含 MTR/traceroute，仅授予需要的原始网络能力；无需 `--privileged`。宿主机部署步骤见 [deploy/README.md](deploy/README.md)。不同系统的 ICMP 权限和网络防火墙仍需实际核验。
+镜像使用 Go **1.27.3** 编译、Alpine **3.24.3** 运行，以 UID 65532 执行，包含 MTR/traceroute，仅授予需要的原始网络能力。Linux systemd 常驻运行及镜像刷新步骤见 [部署文档](deploy/README.md)。不同系统的 ICMP 权限和网络防火墙仍需实际核验。
 
 ## 断连与数据
 
@@ -43,3 +43,14 @@ docker run --name probelune-node --restart unless-stopped \
 本地单次检测可用 `--check` 从 stdin 读取 `{check,policy}` JSON；读取结果 `status` 判断成败。参见英文 README 的完整示例与 [协议文档](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md)。
 
 开发检查：`go fmt ./...`、`go vet ./...`、`go test ./...`、`go build ./cmd/node`。当前面向小规模自部署，异地网络与生产容量需在实际环境验收。许可证：[GPL-3.0-or-later](LICENSE)。
+
+
+## 星标历史
+
+[![星标历史](https://api.star-history.com/svg?repos=sihuangtech/probelune-node&type=Date)](https://star-history.com/#sihuangtech/probelune-node&Date)
+
+## 联系开发者
+
+- 开发者: [Snake Konginchrist](https://github.com/Snake-Konginchrist)
+- 邮箱: [developer@skstudio.cn](mailto:developer@skstudio.cn)
+- 问题反馈: [GitHub Issues](https://github.com/sihuangtech/probelune-node/issues)

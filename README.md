@@ -14,7 +14,7 @@ HTTP verifies TLS by default, records connection timing, supports status/text as
 
 ## Build and register
 
-Requires Go 1.27+. No adjacent repository is required.
+Install [Go](https://go.dev/doc/install); the current verified patch is **1.27.3**.
 
 ```sh
 git clone https://github.com/sihuangtech/probelune-node.git
@@ -36,7 +36,7 @@ For an isolated development network only, explicitly add `--allow-http`. Set `--
 ## Container
 
 ```sh
-docker build -t probelune-node:local .
+docker build --pull -t probelune-node:local .
 docker run --name probelune-node --restart unless-stopped \
   --cap-drop ALL --cap-add NET_RAW \
   -e PROBELUNE_PANEL=https://monitor.example.com \
@@ -45,7 +45,7 @@ docker run --name probelune-node --restart unless-stopped \
   -v probelune-node-data:/data probelune-node:local
 ```
 
-The image runs as UID 65532, includes MTR/traceroute and grants only raw-network capability to the relevant executables. It does not require privileged mode or host networking. ICMP results still depend on the host/kernel/network policy. For a host service, see [deployment instructions](deploy/README.md).
+The image uses Go **1.27.3** for compilation and Alpine **3.24.3** at runtime. It runs as UID 65532, includes MTR/traceroute and grants only raw-network capability to the relevant executables. ICMP results depend on the host/kernel/network policy. See [Deployment](deploy/README.md) for a host service and package refresh commands.
 
 ## Local diagnostic mode
 
@@ -62,3 +62,14 @@ Assignments expire after 15 minutes. Cached tasks continue only until their leas
 This release targets small self-hosted networks. Production capacity, real geographic diversity and provider-specific behavior require deployment validation. See [protocol semantics](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md), [SECURITY.md](SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
 
 Development: `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
+
+
+## Star History
+
+[![Star history](https://api.star-history.com/svg?repos=sihuangtech/probelune-node&type=Date)](https://star-history.com/#sihuangtech/probelune-node&Date)
+
+## Contact
+
+- Developer: [Snake Konginchrist](https://github.com/Snake-Konginchrist)
+- Email: [developer@skstudio.cn](mailto:developer@skstudio.cn)
+- Feedback: [GitHub Issues](https://github.com/sihuangtech/probelune-node/issues)
