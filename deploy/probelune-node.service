@@ -1,0 +1,25 @@
+[Unit]
+Description=Probelune monitoring node
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=probelune-node
+Group=probelune-node
+StateDirectory=probelune-node
+EnvironmentFile=/etc/probelune/node.env
+ExecStart=/usr/local/bin/probelune-node --data /var/lib/probelune-node
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+AmbientCapabilities=CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_RAW
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

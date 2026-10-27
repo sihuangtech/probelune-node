@@ -1,0 +1,6 @@
+.git
+node
+node-data
+dist
+*.log
+.env

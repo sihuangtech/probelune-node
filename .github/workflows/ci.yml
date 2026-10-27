@@ -1,0 +1,31 @@
+name: Validate node
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-go@v7.0.0
+        with:
+          go-version-file: go.mod
+      - name: Validate and cross-build
+        env:
+          GOWORK: 'off'
+          CGO_ENABLED: '0'
+        run: |
+          test -z "$(gofmt -l cmd internal pkg)"
+          go vet ./...
+          go test ./...
+          GOOS=linux GOARCH=amd64 go build -trimpath -o dist/probelune-node-linux-amd64 ./cmd/node
+          GOOS=linux GOARCH=arm64 go build -trimpath -o dist/probelune-node-linux-arm64 ./cmd/node
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: node-linux-binaries
+          path: dist/
+      - run: docker build -t probelune-node:ci .
+      - name: Exercise non-root raw-network capability
+        run: |
+          printf '%s\n' '{"check":{"type":"ping","target":"127.0.0.1","count":2,"timeout":3},"policy":{"allow_cidrs":["127.0.0.0/8"]}}' | docker run --rm -i --cap-drop ALL --cap-add NET_RAW probelune-node:ci --check | tee result.json
+          jq -e '.status == "success"' result.json

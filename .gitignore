@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+.env
+*.log
+/node
+/node-data/
+/dist/
+/coverage.out
