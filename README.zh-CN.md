@@ -44,7 +44,6 @@ docker run --name probelune-node --restart unless-stopped \
 
 开发检查：`go fmt ./...`、`go vet ./...`、`go test ./...`、`go build ./cmd/node`。当前面向小规模自部署，异地网络与生产容量需在实际环境验收。许可证：[GPL-3.0-or-later](LICENSE)。
 
-
 ## 星标历史
 
 [![星标历史](https://api.star-history.com/svg?repos=sihuangtech/probelune-node&type=Date)](https://star-history.com/#sihuangtech/probelune-node&Date)

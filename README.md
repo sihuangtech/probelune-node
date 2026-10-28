@@ -63,7 +63,6 @@ This release targets small self-hosted networks. Production capacity, real geogr
 
 Development: `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
 
-
 ## Star History
 
 [![Star history](https://api.star-history.com/svg?repos=sihuangtech/probelune-node&type=Date)](https://star-history.com/#sihuangtech/probelune-node&Date)
