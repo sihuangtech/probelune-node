@@ -59,7 +59,7 @@ The command emits one JSON result and never creates a continuous monitor. Explic
 
 Assignments expire after 15 minutes. Cached tasks continue only until their lease ends. The file spool is capped at 100 MiB and 24 hours; discarded entries are counted. Uploads are idempotent, and late results remain historical evidence instead of replacing fresh state. Server disconnection, permission errors and target failures are different conditions.
 
-This release targets small self-hosted networks. Production capacity, real geographic diversity and provider-specific behavior require deployment validation. See [protocol semantics](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md), [SECURITY.md](SECURITY.md) and [CHANGELOG.md](CHANGELOG.md).
+This release targets small self-hosted networks. Production capacity, real geographic diversity and provider-specific behavior require deployment validation. See [protocol semantics](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md), [SECURITY.md](SECURITY.md) and [Releases](https://github.com/sihuangtech/probelune-node/releases).
 
 Development: `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
 

@@ -6,3 +6,8 @@
 /node-data/
 /dist/
 /coverage.out
+
+# Release notes are maintained on GitHub Releases.
+CHANGELOG*
+Changelog*
+changelog*

@@ -7,7 +7,7 @@ toolchain go1.27.3
 require (
 	github.com/miekg/dns v1.1.73
 	github.com/prometheus-community/pro-bing v0.9.1
-	github.com/sihuangtech/probelune-contracts v0.1.1
+	github.com/sihuangtech/probelune-contracts v0.1.1-0.20261102174503-e512a913e954
 )
 
 require (
