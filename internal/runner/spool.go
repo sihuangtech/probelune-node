@@ -23,18 +23,17 @@ func writeJSON(path string, value any) error {
 func (r *Runner) saveResult(result ct.Result) error {
 	return writeJSON(filepath.Join(r.Dir, "spool", result.ID+".json"), result)
 }
-func (r *Runner) batch() ([]ct.Result, error) {
-	entries, err := os.ReadDir(filepath.Join(r.Dir, "spool"))
-	if err != nil {
-		return nil, err
-	}
-	sort.Slice(entries, func(i, j int) bool {
-		a, _ := entries[i].Info()
-		b, _ := entries[j].Info()
-		return a.ModTime().After(b.ModTime())
-	})
-	out := []ct.Result{}
-	var total int64
+
+type spoolFile struct {
+	path     string
+	size     int64
+	modified time.Time
+}
+
+// Snapshot only completed files. Atomic writers may rename temporary entries
+// between ReadDir and Info; a disappearing entry is not a queue failure.
+func spoolSnapshot(dir string, entries []os.DirEntry) []spoolFile {
+	files := []spoolFile{}
 	for _, entry := range entries {
 		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
 			continue
@@ -43,10 +42,25 @@ func (r *Runner) batch() ([]ct.Result, error) {
 		if err != nil {
 			continue
 		}
-		total += info.Size()
-		path := filepath.Join(r.Dir, "spool", entry.Name())
-		if total > 100<<20 || time.Since(info.ModTime()) > 24*time.Hour {
-			os.Remove(path)
+		files = append(files, spoolFile{filepath.Join(dir, entry.Name()), info.Size(), info.ModTime()})
+	}
+	sort.Slice(files, func(i, j int) bool { return files[i].modified.After(files[j].modified) })
+	return files
+}
+
+func (r *Runner) batch() ([]ct.Result, error) {
+	entries, err := os.ReadDir(filepath.Join(r.Dir, "spool"))
+	if err != nil {
+		return nil, err
+	}
+	out := []ct.Result{}
+	var total int64
+	for _, file := range spoolSnapshot(filepath.Join(r.Dir, "spool"), entries) {
+		total += file.size
+		if total > 100<<20 || time.Since(file.modified) > 24*time.Hour {
+			if os.Remove(file.path) != nil {
+				continue
+			}
 			r.mu.Lock()
 			r.dropped++
 			r.mu.Unlock()
@@ -55,7 +69,7 @@ func (r *Runner) batch() ([]ct.Result, error) {
 		if len(out) >= 50 {
 			continue
 		}
-		raw, err := os.ReadFile(path)
+		raw, err := os.ReadFile(file.path)
 		if err != nil {
 			continue
 		}
