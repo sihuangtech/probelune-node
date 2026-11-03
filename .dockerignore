@@ -4,3 +4,5 @@ node-data
 dist
 *.log
 .env
+
+.cache/

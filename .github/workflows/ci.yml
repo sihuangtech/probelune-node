@@ -5,10 +5,15 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GONOPROXY: github.com/sihuangtech/probelune-contracts
+      GONOSUMDB: github.com/sihuangtech/probelune-contracts
+      GOMODCACHE: ${{ github.workspace }}/.cache/go-mod-v0.1.0
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-go@v7.0.0
         with:
+          cache: false
           go-version-file: go.mod
       - name: Validate and cross-build
         env:
