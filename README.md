@@ -65,7 +65,7 @@ Assignments expire after 15 minutes. Cached tasks continue only until their leas
 
 This release targets small self-hosted networks. Production capacity, real geographic diversity and provider-specific behavior require deployment validation. See [protocol semantics](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md), [SECURITY.md](SECURITY.md) and [Releases](https://github.com/sihuangtech/probelune-node/releases).
 
-Development: source `. ./scripts/go-env.sh` from the repository root before manual Go commands, then run `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
+Development: source `. ./scripts/go-env.sh`, then run `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
 
 ## Star History
 

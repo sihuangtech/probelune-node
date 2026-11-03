@@ -1,7 +1,7 @@
 FROM golang:1.27.3-alpine3.24 AS build
 WORKDIR /src
-RUN apk add --no-cache git ca-certificates
 ENV GONOPROXY=github.com/sihuangtech/probelune-contracts GONOSUMDB=github.com/sihuangtech/probelune-contracts
+RUN apk add --no-cache git ca-certificates
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .

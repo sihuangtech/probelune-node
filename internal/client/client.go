@@ -17,7 +17,7 @@ type Client struct {
 	HTTP                *http.Client
 }
 
-const Version = "0.1.0"
+const Version = "0.1.1"
 
 func New(base, nodeID, token string, allowHTTP bool) (*Client, error) {
 	u, err := url.Parse(base)
@@ -41,7 +41,7 @@ func (c *Client) Post(ctx context.Context, path string, input, output any) error
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Node-ID", c.NodeID)
-	req.Header.Set("User-Agent", "Probelune-Node/0.1.0")
+	req.Header.Set("User-Agent", "Probelune-Node/"+Version)
 	if c.Token != "" {
 		req.Header.Set("Authorization", "Bearer "+c.Token)
 	}

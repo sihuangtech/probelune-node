@@ -44,7 +44,7 @@ docker run --name probelune-node --restart unless-stopped \
 
 本地单次检测可用 `--check` 从 stdin 读取 `{check,policy}` JSON；读取结果 `status` 判断成败。参见英文 README 的完整示例与 [协议文档](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md)。
 
-手动执行 Go 命令前，在仓库根目录运行 `. ./scripts/go-env.sh`。开发检查：`go fmt ./...`、`go vet ./...`、`go test ./...`、`go build ./cmd/node`。当前面向小规模自部署，异地网络与生产容量需在实际环境验收。许可证：[GPL-3.0-or-later](LICENSE)。
+手动执行 Go 命令前先运行 `. ./scripts/go-env.sh`。开发检查：`go fmt ./...`、`go vet ./...`、`go test ./...`、`go build ./cmd/node`。当前面向小规模自部署，异地网络与生产容量需在实际环境验收。许可证：[GPL-3.0-or-later](LICENSE)。
 
 ## 星标历史
 

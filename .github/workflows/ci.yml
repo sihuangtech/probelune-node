@@ -8,7 +8,7 @@ jobs:
     env:
       GONOPROXY: github.com/sihuangtech/probelune-contracts
       GONOSUMDB: github.com/sihuangtech/probelune-contracts
-      GOMODCACHE: ${{ github.workspace }}/.cache/go-mod-v0.1.0
+      GOMODCACHE: ${{ github.workspace }}/.cache/go-mod-v0.1.1
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-go@v7.0.0
