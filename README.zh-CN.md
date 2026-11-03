@@ -8,20 +8,20 @@
 
 UDP 使用 UTF-8 或 HEX 编码发送有界请求，必须收到非空响应才算成功，可配置响应包含断言。超时表示未观察到响应，不证明端口关闭。探测周期在面板配置，支持 15—86400 秒且大于单次超时；节点报告能力并按分配周期执行。
 
-## Probelune 项目仓库
+## 了解 Probelune
 
-Probelune 由六个仓库组成，当前仓库是 **probelune-node**。可通过下表了解并访问其他组件。
+探测节点连接面板，执行所在网络的检测任务并上报结果，你可以在网页、手机或桌面查看这些结果。
 
-自部署时从网页面板和探测节点开始，移动端与桌面端连接同一个面板，协议仓库为开发者提供共享定义。
+开始自部署时，先配置网页面板和探测节点，再按需要连接手机或桌面客户端。完整架构与部署指南可以在项目总览中找到。
 
-| 仓库 | 用途 |
+| 组件 | 用途 |
 | --- | --- |
-| [probelune](https://github.com/sihuangtech/probelune) | 项目总览、架构与部署指南 |
-| [probelune-dashboard](https://github.com/sihuangtech/probelune-dashboard) | 网页控制台与 Go API 服务端 |
-| [probelune-node](https://github.com/sihuangtech/probelune-node) | 部署在监测网络中的探测执行器 |
-| [probelune-mobile](https://github.com/sihuangtech/probelune-mobile) | Flutter Android 与 iOS 移动客户端 |
-| [probelune-desktop](https://github.com/sihuangtech/probelune-desktop) | Electron 桌面客户端与诊断工具 |
-| [probelune-contracts](https://github.com/sihuangtech/probelune-contracts) | 共享 Go 数据结构、参数校验与接口协议 |
+| [项目总览](https://github.com/sihuangtech/probelune) | 项目总览、架构与部署指南 |
+| [网页面板](https://github.com/sihuangtech/probelune-dashboard) | 网页控制台与 Go API 服务端 |
+| [探测节点](https://github.com/sihuangtech/probelune-node) | 部署在监测网络中的探测执行器 |
+| [移动客户端](https://github.com/sihuangtech/probelune-mobile) | Flutter Android 与 iOS 移动客户端 |
+| [桌面客户端](https://github.com/sihuangtech/probelune-desktop) | Electron 桌面客户端与诊断工具 |
+| [协议与数据定义](https://github.com/sihuangtech/probelune-contracts) | 共享 Go 数据结构、参数校验与接口协议 |
 
 
 ## 编译与注册
