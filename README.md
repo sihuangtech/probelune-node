@@ -8,7 +8,11 @@ Deployable probes for **Probelune (巡汐)**. Run a node on each network you wan
 
 | Continuous monitoring | One-off diagnostics |
 | --- | --- |
-| HTTP/HTTPS, TCP, ICMP, DNS | The same checks plus MTR and traceroute when installed |
+| HTTP/HTTPS, TCP, UDP, ICMP, DNS | The same checks plus MTR and traceroute when installed |
+
+UDP sends a bounded UTF-8 or HEX payload and waits for a non-empty response, with an optional response-content assertion. A timeout means no reply was observed, not proof of a closed port.
+
+Monitoring intervals are set in the dashboard (15–86400 seconds, greater than the check timeout). The node advertises its supported checks and executes assigned cycles.
 
 HTTP verifies TLS by default, records connection timing, supports status/text assertions and bounded redirects. ICMP reports loss and RTT; DNS uses an independent resolver. Private targets require explicit CIDRs set by the dashboard administrator. Tasks are data, never arbitrary shell commands.
 
@@ -61,7 +65,7 @@ Assignments expire after 15 minutes. Cached tasks continue only until their leas
 
 This release targets small self-hosted networks. Production capacity, real geographic diversity and provider-specific behavior require deployment validation. See [protocol semantics](https://github.com/sihuangtech/probelune-contracts/blob/main/docs/PROTOCOL.md), [SECURITY.md](SECURITY.md) and [Releases](https://github.com/sihuangtech/probelune-node/releases).
 
-Development: `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
+Development: source `. ./scripts/go-env.sh` from the repository root before manual Go commands, then run `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/node`. Distributed under [GPL-3.0-or-later](LICENSE).
 
 ## Star History
 
@@ -72,5 +76,3 @@ Development: `go fmt ./...`, `go vet ./...`, `go test ./...`, `go build ./cmd/no
 - Developer: [Snake Konginchrist](https://github.com/Snake-Konginchrist)
 - Email: [developer@skstudio.cn](mailto:developer@skstudio.cn)
 - Feedback: [GitHub Issues](https://github.com/sihuangtech/probelune-node/issues)
-
-For the republished contracts `v0.1.0`, run `. ./scripts/go-env.sh` from this repository root before manual Go commands. Build scripts, CI and Docker scope direct fetching and checksum-database bypass to this module; other modules retain normal verification.
